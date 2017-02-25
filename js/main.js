@@ -1,42 +1,39 @@
-/**
- * Created by Administrator on 2017/2/25 0025.
- */
 requirejs.config({
-    //¾ø¶ÔÂ·¾¶
-    baseUrl:'/',
-    paths:{
-        // µÚÈı·½¿âµÄÂ·¾¶ÅäÖÃ
-        jquery: 'lib/jquery/jquery.min',
-        bootsrap:'lib/bootsrap/js/bootsrap.min',
-
-        // ×Ô¼ºĞ´µÄÂ·¾¶ÅäÖÃ
-        userList:'js/user/list',
-        userProfile: 'js/user/profile'
-    },
-    shim:{
-        bootsrap:{
-            deps:['jquery']
-        }
-    }
+	baseUrl: '/',
+	paths: {
+		
+		// ç¬¬ä¸‰æ–¹åº“çš„è·¯å¾„é…ç½®
+		jquery: 'lib/jquery/jquery.min',
+		bootstrap: 'lib/bootstrap/js/bootstrap.min',
+		
+		// è‡ªå·±å†™çš„è·¯å¾„é…ç½®
+		userList: 'js/user/list',
+		userProfile: 'js/user/profile'
+	},
+	shim: {
+		bootstrap: {
+			deps: ['jquery']
+		}
+	}
 });
 
-// ËùÓĞµÄÒ³Ãæ¶¼ĞèÒªÕâÁ½¸öjs£¬ÏÈ¼ÓÔØËûÃÇ¡£
+// æ‰€æœ‰çš„é¡µé¢éƒ½éœ€è¦è¿™ä¸¤ä¸ªjsï¼Œå…ˆåŠ è½½ä»–ä»¬ã€‚
 require(['jquery', 'bootstrap']);
 
 /*
- *ÕâÀï»ñÈ¡Ò³ÃæµÄpathname£¬È»ºó¶ÔÓ¦µÄ¼ÓÔØjs¡£
+ *è¿™é‡Œè·å–é¡µé¢çš„pathnameï¼Œç„¶åå¯¹åº”çš„åŠ è½½jsã€‚
  * */
 (function(window) {
-
-    var pathname = window.location.pathname;
-    switch(pathname) {
-        case '/html/user/list.html':
-            require(['userList']);
-            break;
-        case '/html/user/profile.html':
-            require(['userProfile']);
-            break;
-    }
-
-
+	
+	var pathname = window.location.pathname;
+	switch(pathname) {
+		case '/html/user/list.html': 
+			require(['userList']);
+			break;
+		case '/html/user/profile.html': 
+			require(['userProfile']);
+			break;
+	}
+	
+	
 })(window);
