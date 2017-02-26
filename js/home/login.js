@@ -1,3 +1,4 @@
-define(['jquery'], function($) {
-	console.log('44')
+define(['jquery'], function ($) {
+    console.log('44')
+
 });
