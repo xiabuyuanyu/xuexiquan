@@ -29,4 +29,16 @@ define(['jquery'],function($){
             console.log('败了');
         }
     });
+
+    $('#logout').on('click',function(){
+        $.post('/v6/logout',function(data){
+            if(data.code===200){
+                location.href='/';
+            }
+        })
+    });
+
+
+
+
 });
