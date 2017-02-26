@@ -8,6 +8,7 @@ requirejs.config({
         // 第三方库的路径配置
         jquery: 'lib/jquery/jquery.min',
         bootstrap:'lib/bootstrap/js/bootstrap.min',
+        jquerycookie:'lib/jquery-cookie/jquery.cookie',
 
         // 自己写的路径配置
         /*js/user*/

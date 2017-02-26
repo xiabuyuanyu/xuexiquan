@@ -32,7 +32,7 @@ define(['jquery'],function($){
 
     $('#logout').on('click',function(){
         $.post('/v6/logout',function(data){
-            if(data.code===200){
+            if(data.code==200){
                 location.href='/';
             }
         })
@@ -42,3 +42,4 @@ define(['jquery'],function($){
 
 
 });
+
