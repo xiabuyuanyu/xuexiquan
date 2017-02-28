@@ -22,9 +22,9 @@ requirejs.config({
         teacherList:'js/teacher/list',
 
         /*js/home*/
-        homeLogin:'js/home/login',
-        homeRepass:'js/home/repass',
-        homeSetting:'js/home/setting',
+        Login:'js/home/login',
+        Repass:'js/home/repass',
+        Setting:'js/home/setting',
 
         /*js/course*/
         courseAdd:'js/course/add',
@@ -48,7 +48,7 @@ requirejs.config({
 
 // 优先以最快的速度开启页面进度条，其他的js加载延后。
 require(['nprogress'], function (nprogress) {
-    nprogress.start()
+    nprogress.start();
 });
 
 // 所有的页面都需要这两个js，先加载他们。
@@ -124,13 +124,13 @@ require(['jquery', 'bootstrap','common']);
                 break;
             /*home*/
             case '/html/home/login.html':
-                require(['homeLogin']);
+                require(['Login']);
                 break;
             case '/html/home/repass.html':
-                require(['homeRepass']);
+                require(['Repass']);
                 break;
             case '/html/home/settings.html':
-                require(['homeSettings']);
+                require(['Settings']);
                 break;
             case '/':
                 require(['index']);
