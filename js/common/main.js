@@ -9,8 +9,10 @@ requirejs.config({
         jquery: 'lib/jquery/jquery.min',
         bootstrap:'lib/bootstrap/js/bootstrap.min',
         jqueryCookie: 'lib/jquery-cookie/jquery.cookie',
+        nprogress: 'lib/nprogress/nprogress',
 
         // 自己写的路径配置
+
         /*js/user*/
         userList:'js/user/list',
         userProfile: 'js/user/profile',
@@ -33,13 +35,20 @@ requirejs.config({
         courseCategoryAdd: 'js/course/category_add',
         courseList: 'js/course/list',
         courseTopic: 'js/course/topic',
-        common:'js/common/common'
+        common:'js/common/common',
+        index: 'js/index'
+
     },
     shim:{
         bootsrap:{
             deps:['jquery']
         }
     }
+});
+
+// 优先以最快的速度开启页面进度条，其他的js加载延后。
+require(['nprogress'], function (nprogress) {
+    nprogress.start()
 });
 
 // 所有的页面都需要这两个js，先加载他们。
@@ -122,6 +131,9 @@ require(['jquery', 'bootstrap','common']);
                 break;
             case '/html/home/settings.html':
                 require(['homeSettings']);
+                break;
+            case '/':
+                require(['index']);
                 break;
         }
     });
