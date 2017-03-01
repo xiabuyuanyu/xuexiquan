@@ -1,5 +1,6 @@
 //定义
 define(['jquery','jqueryCookie'],function($,undefined){
+    // 左侧导航下拉列表
     $('.navs a').on('click',function(){
         $(this).next().slideToggle();
     });
@@ -62,7 +63,7 @@ define(['jquery','jqueryCookie'],function($,undefined){
     $('.aside .profile h4').html(userInfo.tc_name? userInfo.tc_name:'dagenimeiminga');
     $('.aside .profile img').attr('src', userInfo.tc_avatar?userInfo.tc_avatar:'/img/default.png');
 
-    console.log(userInfo.tc_avatar);
+    //console.log(userInfo.tc_avatar);
 
 });
 
