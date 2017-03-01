@@ -1,32 +1,60 @@
-define(['jquery', 'common', 'nprogress', 'template'], function ($, undefined, nprogress, template) {
+define(['jquery', 'common', 'nprogress', 'template'], function($, undefined, nprogress, template) {
 
-    // ¸ÃÒ³ËùÓĞµÄjs¼ÓÔØÍê±Ï£¬½ø¶ÈÌõ½áÊø¡£
+    // è¯¥é¡µæ‰€æœ‰çš„jsåŠ è½½å®Œæ¯•ï¼Œè¿›åº¦æ¡ç»“æŸã€‚
     nprogress.done();
 
-    // äÖÈ¾½²Ê¦ÁĞ±í  /v6/teacher ½Ó¿Ú ºóÃæÊÇ»Øµ÷
-    $.get('/v6/teacher', function (data) {
-        if (data.code == 200) {
-            //teacher-list-tpl Ä£°åID  ºóÃæÊÇÊı¾İ
-            var html = template('teacher-list-tpl', {list: data.result});
-            //äÖÈ¾  #teacher-list-tbodyµ½Ö¸¶¨Î»ÖÃ
-            $('#teacher-list-tbody').html(html);
-        }
-    });
+    // è®²å¸ˆåˆ—è¡¨æ•°æ®ç¼“å­˜
+    var treacherListCache;
+    try{
+        treacherListCache = JSON.parse(localStorage.getItem('treacherListCache'));
+    }catch(e){}
 
-    // Í¨¹ıÊÂ¼şÎ¯ÍĞµÄ·½Ê½¸ø¶¯Ì¬Éú³ÉµÄa±êÇ©°ó¶¨µã»÷ÊÂ¼ş£¬
-    // È»ºó»ñÈ¡½²Ê¦ÏêÏ¸ĞÅÏ¢²¢Õ¹Ê¾¡£
-    //ÊÂ¼şÎ¯ÍĞ£º
-    $('#teacher-list-tbody').on('click', '.teacher-view', function () {
+    /**
+     * å¦‚æœå­˜åœ¨ç¼“å­˜æ•°æ®ä¼˜å…ˆä½¿ç”¨ç¼“å­˜ï¼Œ
+     * å¦åˆ™å‘é€ajaxè¯·æ±‚é‡æ–°è·å–æ•°æ®ï¼Œç„¶åè¿›è¡Œç¼“å­˜ã€‚
+     * */
+    if(treacherListCache) {
+        var html = template('teacher-list-tpl', {list: treacherListCache});
+        $('#teacher-list-tbody').html(html);
+    }else {
+        $.get('/v6/teacher', function(data) {
+            if(data.code == 200) {
+                localStorage.setItem('treacherListCache',  JSON.stringify(data.result));
+                var html = template('teacher-list-tpl', {list: data.result});
+                $('#teacher-list-tbody').html(html);
+            }
+        });
+    }
+
+    // é€šè¿‡äº‹ä»¶å§”æ‰˜çš„æ–¹å¼ç»™åŠ¨æ€ç”Ÿæˆçš„aæ ‡ç­¾ç»‘å®šç‚¹å‡»äº‹ä»¶ï¼Œ
+    // ç„¶åè·å–è®²å¸ˆè¯¦ç»†ä¿¡æ¯å¹¶å±•ç¤ºã€‚
+    $('#teacher-list-tbody').on('click', '.teacher-view', function() {
         $.get('/v6/teacher/view', {
-            //thisÎªA£¬ÕÒ¸¸¼¶Ìí¼ÓÊôĞÔ
             tc_id: $(this).parent().attr('data-id')
-            //»Øµ÷
-        }, function (data) {
-            //ÅĞ¶Ï
-            if (data.code == 200) {
-                //äÖÈ¾
+        }, function(data) {
+            if(data.code == 200) {
                 var html = template('teacher-view-tpl', data.result);
                 $('#teacherModal').html(html);
+            }
+        });
+    });
+
+    // è®²å¸ˆçŠ¶æ€ä¿®æ”¹
+    $('#teacher-list-tbody').on('click', '.teacher-status', function() {
+        var $self = $(this);
+        $.ajax({
+            url: '/v6/teacher/handle',
+            type: 'post',
+            data: {
+                tc_id: $(this).parent().attr('data-id'),
+                tc_status: $(this).parent().attr('data-status')
+            },
+            success: function(data) {
+                if(data.code == 200) {
+                    // å¾—åˆ°ä¿®æ”¹åçš„çŠ¶æ€ï¼Œä½¿ç”¨è¯¥çŠ¶æ€ä¿®æ”¹æŒ‰é’®åç§°&çˆ¶å…ƒç´ çš„data-statuså±æ€§å€¼
+                    $self.html(data.result.tc_status == 0? 'å¼€å¯': 'æ³¨é”€');
+                    $self.parent().attr('data-status', data.result.tc_status);
+                }
             }
         });
     });
