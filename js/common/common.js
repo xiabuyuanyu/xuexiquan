@@ -4,6 +4,14 @@ define(['jquery','jqueryCookie'],function($,undefined){
         $(this).next().slideToggle();
     });
 
+    // ajax请求loading
+    $(document).ajaxStart(function () {
+        $('.overlay').show();
+    }).ajaxStop(function(){
+        $('.overlay').hide();
+    });
+
+
     /**
      * 根据页面路径定位左侧导航
      * 1、获取当前页面的pathname
