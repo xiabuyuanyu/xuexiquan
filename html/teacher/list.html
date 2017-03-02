@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>学IT - 后台管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <?php include('../common/style.html') ?>
 </head>
 <body>
@@ -21,7 +22,7 @@
                     <li class="active">讲师列表</li>
                 </ol>
                 <div class="page-title">
-                    <a href="add.html" class="btn btn-success btn-sm pull-right">添加讲师</a>
+                    <a href="/html/teacher/add.html" class="btn btn-success btn-sm pull-right">添加讲师</a>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -71,7 +72,8 @@
         </div>
     </div>
 
-
+<!-- 讲师查看面板 -->
+<div class="modal fade" id="teacherModal"></div>
 
 <!-- 讲师列表模版   i+1实现编号从1开始   <td data-id='{{ teacher.tc_id }}'>表根据父级ID，引用模板-->
 <!-- 讲师列表模版 -->
@@ -81,15 +83,15 @@
 	            <td>{{ i +1 }}</td>
 	            <td>{{ teacher.tc_name }}</td>
 	            <td>{{ teacher.tc_roster }}</td>
-	            <td>{{ teacher.tc_birthday_}}</td>
+	            <td>{{ teacher.tc_birthday}}</td>
 	            <td>{{ teacher.tc_gender == 0? '男': '女'  }}</td>
 	            <td>{{ teacher.tc_cellphone }}</td>
 	            <td>{{ teacher.tc_email }}</td>
 	            <td>{{ teacher.tc_join_date }}</td>
 	            <td data-id='{{ teacher.tc_id }}' data-status='{{teacher.tc_status}}'>
 	                <a href="#teacherModal" data-toggle="modal" class="btn btn-info btn-xs teacher-view">查 看</a>
-	                <a href="./add.html" class="btn btn-info btn-xs">编 辑</a>
-
+	                <a href="/html/teacher/add.html?tc_id={{ teacher.tc_id }}" class="btn btn-info btn-xs">编 辑</a>
+        <!-- status的值为0代表注销，1代表开启 -->
 	                <a href="javascript:;" class="btn btn-warning btn-xs teacher-status">{{ teacher.tc_status == 0? '开启': '注销' }}</a>
 	            </td>
 	        </tr>
@@ -149,9 +151,8 @@
         <!--</div>-->
     <!--</div>-->
 
-<div class="modal fade" id="teacherModal"></div>
 
-<!-- 讲师面板模版 -->
+<!-- 讲师查看面板模版 -->
 <script type="text/tpl" id="teacher-view-tpl">
 	        <div class="modal-dialog" style="width: 750px;">
 	            <div class="panel panel-default">

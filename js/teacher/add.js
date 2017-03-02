@@ -1,29 +1,34 @@
 define(['jquery', 'common', 'nprogress','util','template', 'datepicker', 'datepickerLanguage'],  function ($, undefined, nprogress, util, template, datepicker, undefined) {
 
-    // ¸ÃÒ³ËùÓĞµÄjs¼ÓÔØÍê±Ï£¬½ø¶ÈÌõ½áÊø¡£
+    // è¯¥é¡µæ‰€æœ‰çš„jsåŠ è½½å®Œæ¯•ï¼Œè¿›åº¦æ¡ç»“æŸã€‚
     nprogress.done();
 
     /**
-     * »ñÈ¡tc_id²éÑ¯×Ö·û´®£¬Èç¹ûÓĞÔòÈÏÎªµ±Ç°ÊÇ½²Ê¦±à¼­Ò³Ãæ£¬Ã»ÓĞÔòÈÏÎªÊÇĞÂ½²Ê¦Ìí¼ÓÒ³Ãæ¡£
+     * è·å–tc_idæŸ¥è¯¢å­—ç¬¦ä¸²ï¼Œå¦‚æœæœ‰åˆ™è®¤ä¸ºå½“å‰æ˜¯è®²å¸ˆç¼–è¾‘é¡µé¢ï¼Œæ²¡æœ‰åˆ™è®¤ä¸ºæ˜¯æ–°è®²å¸ˆæ·»åŠ é¡µé¢ã€‚
      *
-     * ±à¼­½²Ê¦£º
-     * 1¡¢ÏÈ»ñÈ¡½²Ê¦ĞÅÏ¢£¬Õ¹Ê¾µ½±íµ¥ÖĞ
-     * 2¡¢¼àÌıÌá½»±íµ¥ÊÂ¼ş£¬×ªÎªajax·½Ê½Ìá½»µ½½²Ê¦ĞŞ¸Ä½Ó¿Ú¡£
+     * ç¼–è¾‘è®²å¸ˆï¼š
+     * 1ã€å…ˆè·å–è®²å¸ˆä¿¡æ¯ï¼Œå±•ç¤ºåˆ°è¡¨å•ä¸­
+     * 2ã€ç›‘å¬æäº¤è¡¨å•äº‹ä»¶ï¼Œè½¬ä¸ºajaxæ–¹å¼æäº¤åˆ°è®²å¸ˆä¿®æ”¹æ¥å£ã€‚
      *
-     * Ìí¼Ó½²Ê¦£º
-     * 1¡¢¼àÌıÌá½»±íµ¥ÊÂ¼ş£¬×ªÎªajax·½Ê½Ìá½»µ½½²Ê¦Ìí¼Ó½Ó¿Ú¡£
+     * æ·»åŠ è®²å¸ˆï¼š
+     * 1ã€ç›‘å¬æäº¤è¡¨å•äº‹ä»¶ï¼Œè½¬ä¸ºajaxæ–¹å¼æäº¤åˆ°è®²å¸ˆæ·»åŠ æ¥å£ã€‚
      * */
 
-// ¸ù¾İ±à¼­ºÍÌí¼Ó£¬¶ÔÓ¦µÄäÖÈ¾±íµ¥
+// æ ¹æ®ç¼–è¾‘å’Œæ·»åŠ ï¼Œå¯¹åº”çš„æ¸²æŸ“è¡¨å•
     var tcId=util.getQueryString('tc_id');
     if(tcId){
-        // »ñÈ¡¸Ã½²Ê¦Ö®Ç°µÄĞÅÏ¢£¬Ìî³äµ½±íµ¥ÖĞ
+        // è·å–è¯¥è®²å¸ˆä¹‹å‰çš„ä¿¡æ¯ï¼Œå¡«å……åˆ°è¡¨å•ä¸­
         $.get('/v6/teacher/edit',{tc_id:tcId}, function (data) {
             if(data.code == 200){
                 var html = template('teacher-form-tpl', data.result);
                 $('.teacher-add').html(html);
-                //Ê±¼ä²å¼ş
+                //æ—¶é—´æ’ä»¶
                 $('#datepicter').datepicker({
+                    language: 'zh-CN',
+                    endDate: new Date(),
+                    format: 'yyyy-mm-dd'
+                });
+                $('#datepicter2').datepicker({
                     language: 'zh-CN',
                     endDate: new Date(),
                     format: 'yyyy-mm-dd'
@@ -31,6 +36,7 @@ define(['jquery', 'common', 'nprogress','util','template', 'datepicker', 'datepi
             }
         });
     }
+    // è¿™é‡Œæ˜¯æ·»åŠ è®²å¸ˆç›¸å…³çš„æ“ä½œ
     else {
         var html = template('teacher-form-tpl', {});
         $('.teacher-add').html(html);
@@ -39,28 +45,32 @@ define(['jquery', 'common', 'nprogress','util','template', 'datepicker', 'datepi
             endDate: new Date(),
             format: 'yyyy-mm-dd'
         });
+        $('#datepicter2').datepicker({
+            language: 'zh-CN',
+            endDate: new Date(),
+            format: 'yyyy-mm-dd'
+        });
     }
-    // ÕâÀïÊÇÌí¼Ó½²Ê¦Ïà¹ØµÄ²Ù×÷
+    // è¿™é‡Œæ˜¯æ·»åŠ è®²å¸ˆç›¸å…³çš„æ“ä½œ
 
     /**
-     * ¼àÌı±íµ¥Ìá½»ÊÂ¼ş£¬×ª»»ÎªajaxÇëÇó¡£
-     * Èç¹ûÊÇ±à¼­£¬ÄÇÃ´ÇëÇó/v6/teacher/update£¬ ¶îÍâĞèÒªÒ»¸ötc_id²ÎÊı£»
-     * Èç¹ûÊÇÌí¼Ó£¬ÄÇÃ´ÇëÇó/v6/teacher/add¡£
+     * ç›‘å¬è¡¨å•æäº¤äº‹ä»¶ï¼Œè½¬æ¢ä¸ºajaxè¯·æ±‚ã€‚
+     * å¦‚æœæ˜¯ç¼–è¾‘ï¼Œé‚£ä¹ˆè¯·æ±‚/v6/teacher/updateï¼Œ é¢å¤–éœ€è¦ä¸€ä¸ªtc_idå‚æ•°ï¼›
+     * å¦‚æœæ˜¯æ·»åŠ ï¼Œé‚£ä¹ˆè¯·æ±‚/v6/teacher/addã€‚
      * */
     $('.teacher-add').on('submit','#teacher-add-form', function () {
         $.ajax({
-            //Èç¹ûÓĞID£¬¾ÍÊ¹ÓÃupdate½Ó¿Ú£¬Ã»ÓĞ¾ÍÊ¹ÓÃÌí¼ÓµÄadd½Ó¿Ú
+            //å¦‚æœæœ‰IDï¼Œå°±ä½¿ç”¨updateæ¥å£ï¼Œæ²¡æœ‰å°±ä½¿ç”¨æ·»åŠ çš„addæ¥å£
             url: '/v6/teacher/'+ ( tcId? 'update': 'add' ),
             type: 'post',
-            //ÒòÎªserialize»ñÈ¡µ½ËùÓĞname="tc_pass" type="password"ÀïµÄÊôĞÔºÍÊôĞÔÖµ£¬²¢×ª»¯Îª£ºtc_pass&password ËùÓĞ¸ñÊ½Îª'&tc_id=' + tcId
+            //å› ä¸ºserializeè·å–åˆ°æ‰€æœ‰name="tc_pass" type="password"é‡Œçš„å±æ€§å’Œå±æ€§å€¼ï¼Œå¹¶è½¬åŒ–ä¸ºï¼štc_pass&password æ‰€æœ‰æ ¼å¼ä¸º'&tc_id=' + tcId
             data: $(this).serialize()+ ( tcId? '&tc_id=' + tcId : '' ),
-            success: function (data) {
-                // Ìí¼Ó³É¹¦£¬Ìø×ªµ½½²Ê¦ÁĞ±íÒ³
-                if (data.code == 200) {
+            success: function(data) {
+                if(data.code == 200) {
                     location.href = '/html/teacher/list.html';
                 }
             }
-        })
+        });
         return false;
     });
 
