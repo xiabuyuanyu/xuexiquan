@@ -13,7 +13,9 @@ requirejs.config({
         template: 'lib/artTemplate-3.0.1/template',
         datepicker: 'lib/bootstrap-datepicker/js/bootstrap-datepicker',
         datepickerLanguage: 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min',
-
+        region: 'lib/region/jquery.region',
+        ckeditor: 'lib/ckeditor/ckeditor',
+        uploadify: 'lib/uploadify/jquery.uploadify',
 
         // 自己写的路径配置
 
@@ -28,7 +30,7 @@ requirejs.config({
         /*js/home*/
         Login:'js/home/login',
         Repass:'js/home/repass',
-        Setting:'js/home/setting',
+        settings: 'js/home/settings',
 
         /*js/course*/
         courseAdd:'js/course/add',
@@ -50,6 +52,9 @@ requirejs.config({
         },
         datepickerLanguage: {
             deps: ['jquery', 'datepicker']
+        },
+        ckeditor: {
+            exports: 'CKEDITOR'
         }
     }
 });
@@ -138,7 +143,7 @@ require(['jquery', 'bootstrap','common']);
                 require(['Repass']);
                 break;
             case '/html/home/settings.html':
-                require(['Settings']);
+                require(['settings']);
                 break;
             case '/':
                 require(['index']);
