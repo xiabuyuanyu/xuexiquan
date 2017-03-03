@@ -55,6 +55,9 @@ requirejs.config({
         },
         ckeditor: {
             exports: 'CKEDITOR'
+        },
+        uploadify: {
+            deps: ['jquery']
         }
     }
 });
