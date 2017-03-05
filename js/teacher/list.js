@@ -3,6 +3,7 @@ define(['jquery', 'common', 'nprogress', 'template'], function ($, undefined, np
     // 该页所有的js加载完毕，进度条结束。
     nprogress.done();
 
+    
     // 讲师列表数据缓存
     var treacherListCache;
     try{
