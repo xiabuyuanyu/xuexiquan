@@ -6,7 +6,7 @@
     <?php include('../common/style.html')?>
 </head>
 <body>
-    
+
     <!-- 侧边栏 -->
     <?php include('../common/aside.html')?>
     <!-- 主体 -->
@@ -22,104 +22,48 @@
                 </ol>
                 <div class="steps">
                     <!-- 摘要 -->
-                    <div class="brief">
-                        <div class="thumb">
-                            <img src="./img/course_1.jpg" alt="">
-                        </div>
-                        <dl class="info">
-                            <dt>Git 指南</dt>
-                            <dd>讲师：李鹏周</dd>
-                            <dd>课时：32</dd>
-                        </dl>
-                    </div>
                     <!-- 步聚 -->
-                    <ul class="forwards list-unstyled">
-                        <li>
-                            <a href="./course_add_step1.html" class="done">
-                            <b class="fa fa-check"></b>
-                            基本信息
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./course_add_step2.html" class="done">
-                            <b class="fa fa-check"></b>
-                            课程图片
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./course_add_step3.html" class="active">
-                            <b>3</b>
-                            课时管理
-                            </a>
-                        </li>
-                    </ul>
                     <!-- 课时管理 -->
-                    <div class="content">
-                        <!-- 标题 -->
-                        <div class="title">
-                            <h5>课时管理 <small>LESSON MANAGE</small></h5>
-                            <a src="javascript:;" data-toggle="modal" data-target="#lesson" class="btn btn-success btn-sm pull-right">
-                                <i class="fa fa-plus"></i>
-                                课时
-                            </a>
-                        </div>
-                        <div class="lessons">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <i class="fa fa-file-video-o"></i>
-                                    <span class="order">课时：1</span>
-                                    <span class="name">Git工作原理</span>
-                                    <span class="duration">12:06</span>
-                                    <!-- 操作 -->
-                                    <div class="action pull-right">
-                                        <a href="javascript:;" class="btn btn-info btn-xs" data-toggle="modal" data-target="#lesson">编辑</a>
-                                        <a href="javascript:;" class="btn btn-info btn-xs">预览</a>
-                                        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-file-video-o"></i>
-                                    <span class="order">课时：2</span>
-                                    <span class="name">Git版本管理</span>
-                                    <span class="duration">16:07</span>
-                                    <!-- 操作 -->
-                                    <div class="action pull-right">
-                                        <a href="javascript:;" class="btn btn-info btn-xs" data-toggle="modal" data-target="#lesson">编辑</a>
-                                        <a href="javascript:;" class="btn btn-info btn-xs">预览</a>
-                                        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-file-video-o"></i>
-                                    <span class="order">课时：3</span>
-                                    <span class="name">Git协同开发</span>
-                                    <span class="duration">10:02</span>
-                                    <!-- 操作 -->
-                                    <div class="action pull-right">
-                                        <a href="javascript:;" class="btn btn-info btn-xs" data-toggle="modal" data-target="#lesson">编辑</a>
-                                        <a href="javascript:;" class="btn btn-info btn-xs">预览</a>
-                                        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <i class="fa fa-file-video-o"></i>
-                                    <span class="order">课时：4</span>
-                                    <span class="name">Git共享仓库</span>
-                                    <span class="duration">14:28</span>
-                                    <!-- 操作 -->
-                                    <div class="action pull-right">
-                                        <a href="javascript:;" class="btn btn-info btn-xs" data-toggle="modal" data-target="#lesson">编辑</a>
-                                        <a href="javascript:;" class="btn btn-info btn-xs">预览</a>
-                                        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <!-- 课程管理第三步的坑 -->
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 课程管理第三步的模版 -->
+    <script id="step-tpl" type='text/tpl'>
+    	<?php include('../common/course/add_step_head.html') ?>
+		<?php include('../common/course/add_step_aside.html') ?>
+        <div class="content">
+                    <!-- 标题 -->
+                <div class="title">
+                <h5>课时管理 <small>LESSON MANAGE</small></h5>
+        <a id="lesson-add" src="javascript:;" data-toggle="modal" data-target="#lesson" class="btn btn-success btn-sm pull-right">
+                <i class="fa fa-plus"></i>
+                课时
+                </a>
+                </div>
+             <div class="lessons">
+                <ul class="list-unstyled">
+                {{ each lessons }}
+                <li>
+                    <i class="fa fa-file-video-o"></i>
+                    <span class="order">课时：1</span>
+                    <span class="name">{{$value.ct_name}}</span>
+                    <span class="duration">{{ $value.ct_video_duration }}</span>
+                    <!-- 操作 -->
+                    <div class="action pull-right">
+                    <a id="lesson-edit" href="javascript:;" class="btn btn-info btn-xs" data-toggle="modal" data-target="#lesson">编辑</a>
+                            <a href="javascript:;" class="btn btn-info btn-xs">预览</a>
+                            <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+                    </div>
+                </li>
+                {{ /each }}
+                </ul>
+               </div>
+             </div>
+    </script>
+
     <!-- 模态框 添加课程 -->
     <div class="modal fade" id="chapterModal">
         <div class="modal-dialog" style="width: 800px;">
@@ -187,7 +131,6 @@
             </div>
         </div>
     </div>
-
     <?php include('../common/script.html')?>
 </body>
 </html>

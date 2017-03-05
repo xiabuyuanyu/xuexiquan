@@ -43,7 +43,9 @@ define(['jquery', 'common', 'nprogress', 'template', 'region', 'datepicker', 'da
                     endDate: new Date()
                 });
 
-                //// 配置富文本编辑器
+                // 配置富文本编辑器
+                var edit = ckeditor.replace('ckeditor');
+                // 配置富文本编辑器
                 //ckeditor.replace('ckeditor', {
                 //    toolbarGroups: [
                 //        {name: 'clipboard', groups: ['clipboard', 'undo']},
@@ -55,27 +57,16 @@ define(['jquery', 'common', 'nprogress', 'template', 'region', 'datepicker', 'da
                 //    ]
                 //});
 
-
-                // 配置富文本编辑器
-                //ckeditor.replace('ckeditor', function () {
-                //    console.log(123);
-                //    //功能选项
-                //    toolbarGroups: [
-                //        { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-                //        { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-                //        { name: 'insert' },
-                //        { name: 'tools' },
-                //        { name: 'styles' },
-                //        { name: 'colors' },
-                //    ]
-                //});
-
                 // 监听提交事件 form  <form action="" class="form-horizontal">
                 $('.form-horizontal').on('submit',function () {
                     // 生成一个tc_hometown参数，格式为：省|市|县
                     var hometown = $('.hometown select').map(function() {
                         return $(this).find('option:selected').text();
                     }).toArray().join('|');
+
+                    // 设置文本框的内容为富文本编辑器内容
+                    edit.updateElement();
+
                 //发送请求
                 $.ajax({
                     url: '/v6/teacher/modify',
