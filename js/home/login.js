@@ -1,10 +1,4 @@
 define(['jquery','jqueryCookie', 'nprogress'], function ($,undefined,nprogress) {
-    // ajax请求loading
-    $(document).ajaxStart(function () {
-        $('.overlay').show();
-    }).ajaxStop(function(){
-        $('.overlay').hide();
-    });
 
     /**
      * 展示用户的历史登陆头像：

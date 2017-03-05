@@ -7,10 +7,15 @@ requirejs.config({
     paths:{
         // 第三方库的路径配置
         jquery: 'lib/jquery/jquery.min',
-        bootstrap:'lib/bootstrap/js/bootstrap.min',
+        bootstrap: 'lib/bootstrap/js/bootstrap.min',
         jqueryCookie: 'lib/jquery-cookie/jquery.cookie',
         nprogress: 'lib/nprogress/nprogress',
         template: 'lib/artTemplate-3.0.1/template',
+        datepicker: 'lib/bootstrap-datepicker/js/bootstrap-datepicker',
+        datepickerLanguage: 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min',
+        region: 'lib/region/jquery.region',
+        ckeditor: 'lib/ckeditor/ckeditor',
+        uploadify: 'lib/uploadify/jquery.uploadify',
 
         // 自己写的路径配置
 
@@ -25,7 +30,7 @@ requirejs.config({
         /*js/home*/
         Login:'js/home/login',
         Repass:'js/home/repass',
-        Setting:'js/home/setting',
+        settings: 'js/home/settings',
 
         /*js/course*/
         courseAdd:'js/course/add',
@@ -36,13 +41,23 @@ requirejs.config({
         courseCategoryAdd: 'js/course/category_add',
         courseList: 'js/course/list',
         courseTopic: 'js/course/topic',
+        util: 'js/common/util',
         common:'js/common/common',
         index: 'js/index'
 
     },
     shim:{
-        bootsrap:{
+        bootstrap:{
             deps:['jquery']
+        },
+        datepickerLanguage: {
+            deps: ['jquery', 'datepicker']
+        },
+        ckeditor: {
+            exports: 'CKEDITOR'
+        },
+        uploadify: {
+            deps: ['jquery']
         }
     }
 });
@@ -131,7 +146,7 @@ require(['jquery', 'bootstrap','common']);
                 require(['Repass']);
                 break;
             case '/html/home/settings.html':
-                require(['Settings']);
+                require(['settings']);
                 break;
             case '/':
                 require(['index']);

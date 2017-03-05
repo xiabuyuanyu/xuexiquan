@@ -1,8 +1,20 @@
 //定义
 define(['jquery','jqueryCookie'],function($,undefined){
+
+    // ajax请求loading
+    $(document).ajaxStart(function() {
+        $('.overlay').show();
+    }).ajaxStop(function() {
+        $('.overlay').hide();
+    });
+
+    // 左侧导航下拉列表
     $('.navs a').on('click',function(){
         $(this).next().slideToggle();
     });
+
+
+
 
     /**
      * 根据页面路径定位左侧导航
@@ -54,7 +66,7 @@ define(['jquery','jqueryCookie'],function($,undefined){
     $('.aside .profile h4').html(userInfo.tc_name? userInfo.tc_name:'dagenimeiminga');
     $('.aside .profile img').attr('src', userInfo.tc_avatar?userInfo.tc_avatar:'/img/default.png');
 
-    console.log(userInfo.tc_avatar);
+    //console.log(userInfo.tc_avatar);
 
 });
 
